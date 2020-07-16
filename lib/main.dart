@@ -9,7 +9,7 @@ class GroceryStoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Swadesh-E-Haath',
+      title: 'Swadesh-E-Haat',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

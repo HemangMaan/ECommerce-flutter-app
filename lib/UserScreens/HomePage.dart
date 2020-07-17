@@ -1,8 +1,17 @@
+import 'package:GroceryCart/Tools/Store.dart';
+import 'package:GroceryCart/UserScreens/AboutUs.dart';
+import 'package:GroceryCart/UserScreens/LoginLogout.dart';
+import 'package:GroceryCart/UserScreens/Profile.dart';
 import 'package:flutter/material.dart';
 import 'Favourites.dart';
 import 'messages.dart';
 import 'Cart.dart';
 import 'OrderNotifications.dart';
+import 'History.dart';
+import 'Delivery.dart';
+import 'Profile.dart';
+import 'AboutUs.dart';
+import 'LoginLogout.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -66,11 +75,103 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Center(
-        child: Text(
-          'My HomePage Store',
-          style: TextStyle(fontSize: 25.0),
-        ),
-      ),
+          child: Column(
+        children: <Widget>[
+          Flexible(
+            child: GridView.builder(
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              itemCount: storeItems.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  child: Stack(
+                    alignment: FractionalOffset.topLeft,
+                    children: <Widget>[
+                      Stack(
+                        alignment: FractionalOffset.bottomCenter,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fitWidth,
+                                image:
+                                    NetworkImage(storeItems[index].itemImage),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 35.0,
+                            color: Colors.black.withAlpha(100),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    "${storeItems[index].itemName.substring(0)}...",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    "₹${storeItems[index].itemPrice}",
+                                    style: TextStyle(
+                                      color: Colors.red[500],
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            height: 30.0,
+                            width: 60.0,
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5.0),
+                                  bottomRight: Radius.circular(5.0),
+                                )),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.blue,
+                                  size: 20.0,
+                                ),
+                                Text(
+                                  "${storeItems[index].itemRating}",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.favorite_border,
+                                color: Colors.blue,
+                              ),
+                              onPressed: null)
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      )),
       floatingActionButton: Stack(
         alignment: Alignment.topLeft,
         children: <Widget>[
@@ -120,6 +221,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               title: Text('Order Notification'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MyOrderNotifications(),
+                  ),
+                );
+              },
             ),
             ListTile(
               contentPadding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
@@ -131,6 +239,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               title: Text('Order History'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MyOrderHistory(),
+                  ),
+                );
+              },
             ),
             Divider(),
             ListTile(
@@ -143,6 +258,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               title: Text('Profile Settings'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MyProfile(),
+                  ),
+                );
+              },
             ),
             ListTile(
               contentPadding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
@@ -154,6 +276,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               title: Text('Delivery Address'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MyDeliveryAddress(),
+                  ),
+                );
+              },
             ),
             Divider(),
             ListTile(
@@ -166,6 +295,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               title: Text('About Us'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => AboutUs(),
+                  ),
+                );
+              },
             ),
             ListTile(
               contentPadding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
@@ -177,6 +313,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               title: Text('Login'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => LoginLogout(),
+                  ),
+                );
+              },
             ),
           ],
         ),

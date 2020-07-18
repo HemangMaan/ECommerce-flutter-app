@@ -11,7 +11,7 @@ class GroceryStoreApp extends StatelessWidget {
     return MaterialApp(
       title: 'Swadesh-E-Haat',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.brown,
       ),
       home: MyHomePage(),
     );

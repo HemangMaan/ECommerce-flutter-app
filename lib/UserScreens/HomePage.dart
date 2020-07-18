@@ -1,8 +1,10 @@
 import 'package:GroceryCart/Tools/Store.dart';
 import 'package:GroceryCart/UserScreens/AboutUs.dart';
+import 'package:GroceryCart/UserScreens/ItemDetails.dart';
 import 'package:GroceryCart/UserScreens/LoginLogout.dart';
 import 'package:GroceryCart/UserScreens/Profile.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 import 'Favourites.dart';
 import 'messages.dart';
 import 'Cart.dart';
@@ -12,6 +14,7 @@ import 'Delivery.dart';
 import 'Profile.dart';
 import 'AboutUs.dart';
 import 'LoginLogout.dart';
+import 'ItemDetails.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -23,6 +26,22 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     //this.context = context;
+    Widget imageCarousel = new Container(
+      height: 100.0,
+      child: Carousel(
+        boxFit: BoxFit.cover,
+        images: [
+          AssetImage('Images/C3.jpg'),
+          AssetImage('Images/C2.jpg'),
+          AssetImage('Images/C1.png'),
+        ],
+        autoplay: false,
+        animationCurve: Curves.fastOutSlowIn,
+        animationDuration: Duration(milliseconds: 1000),
+        dotSize: 4.0,
+        indicatorBgPadding: 4.0,
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -75,103 +94,140 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Center(
-          child: Column(
-        children: <Widget>[
-          Flexible(
-            child: GridView.builder(
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              itemCount: storeItems.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  child: Stack(
-                    alignment: FractionalOffset.topLeft,
-                    children: <Widget>[
-                      Stack(
-                        alignment: FractionalOffset.bottomCenter,
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fitWidth,
-                                image:
-                                    NetworkImage(storeItems[index].itemImage),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 35.0,
-                            color: Colors.black.withAlpha(100),
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    "${storeItems[index].itemName.substring(0)}...",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    "₹${storeItems[index].itemPrice}",
-                                    style: TextStyle(
-                                      color: Colors.red[500],
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            height: 30.0,
-                            width: 60.0,
-                            decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(5.0),
-                                  bottomRight: Radius.circular(5.0),
-                                )),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.blue,
-                                  size: 20.0,
-                                ),
-                                Text(
-                                  "${storeItems[index].itemRating}",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                          IconButton(
-                              icon: Icon(
-                                Icons.favorite_border,
-                                color: Colors.blue,
-                              ),
-                              onPressed: null)
-                        ],
-                      ),
-                    ],
+        child: Column(
+          children: <Widget>[
+            imageCarousel,
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'All Products',
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.brown,
+                    ),
                   ),
-                );
-              },
+                ),
+              ),
             ),
-          ),
-        ],
-      )),
+            Flexible(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemCount: storeItems.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ItemDetails(
+                            itemImage: storeItems[index].itemImage,
+                            itemName: storeItems[index].itemName,
+                            itemPrice: storeItems[index].itemPrice,
+                            itemRating: storeItems[index].itemRating,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      child: Stack(
+                        alignment: FractionalOffset.topLeft,
+                        children: <Widget>[
+                          Stack(
+                            alignment: FractionalOffset.bottomCenter,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.fitWidth,
+                                    image: NetworkImage(
+                                        storeItems[index].itemImage),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 35.0,
+                                color: Colors.black.withAlpha(100),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        "${storeItems[index].itemName}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 17.0,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "₹${storeItems[index].itemPrice}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 17.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                height: 30.0,
+                                width: 60.0,
+                                decoration: BoxDecoration(
+                                    color: Colors.lightGreen,
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    )),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.brown,
+                                      size: 20.0,
+                                    ),
+                                    Text(
+                                      "${storeItems[index].itemRating}",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.brown,
+                                  ),
+                                  onPressed: null),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            // SizedBox(
+            //   height: 50.0,
+            // ),
+          ],
+        ),
+      ),
       floatingActionButton: Stack(
         alignment: Alignment.topLeft,
         children: <Widget>[

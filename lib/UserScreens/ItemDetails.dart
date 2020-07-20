@@ -16,6 +16,7 @@ class ItemDetails extends StatefulWidget {
 }
 
 class _ItemDetailsState extends State<ItemDetails> {
+  int quantity = 0;
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -215,13 +216,22 @@ class _ItemDetailsState extends State<ItemDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            CircleAvatar(
-                              child: Icon(Icons.remove),
+                            quantity != 0
+                                ? IconButton(
+                                    icon:
+                                        CircleAvatar(child: Icon(Icons.remove)),
+                                    onPressed: () => setState(() => quantity--),
+                                  )
+                                : Container(),
+                            Text(
+                              quantity.toString(),
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
                             ),
-                            Text("0"),
-                            CircleAvatar(
-                              child: Icon(Icons.add),
-                            ),
+                            IconButton(
+                                icon: CircleAvatar(child: Icon(Icons.add)),
+                                onPressed: () => setState(() => quantity++)),
                           ],
                         ),
                         SizedBox(

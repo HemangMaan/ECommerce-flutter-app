@@ -49,6 +49,10 @@ flutter:
     - Images/C1.png
     - Images/C2.jpg
     - Images/C3.jpg
+    - Images/C4.jpg
+    - Images/C5.jpg
+    - Images/C6.jpg
+    - Images/C7.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

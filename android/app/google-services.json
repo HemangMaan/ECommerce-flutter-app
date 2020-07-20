@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1020142041653",
+    "firebase_url": "https://swadeshehaat-ecommerce.firebaseio.com",
+    "project_id": "swadeshehaat-ecommerce",
+    "storage_bucket": "swadeshehaat-ecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020142041653:android:584a38b8f0b0c8aa2a0f7c",
+        "android_client_info": {
+          "package_name": "com.example.GroceryCart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020142041653-vknsf5q5rtep7h7ag2q0rv2aihjoe8sm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.GroceryCart",
+            "certificate_hash": "2835bae740204b75e68651667bc34f161b463c78"
+          }
+        },
+        {
+          "client_id": "1020142041653-7qrld7l420pu6n9jfd8994ve2cdrhjsi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhrYoQhO2LyKPSIOFl2f-84ESwEU4WQbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020142041653-7qrld7l420pu6n9jfd8994ve2cdrhjsi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

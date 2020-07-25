@@ -1,8 +1,8 @@
 import 'package:GroceryCart/Tools/Store.dart';
 import 'package:GroceryCart/UserScreens/AboutUs.dart';
 import 'package:GroceryCart/UserScreens/ItemDetails.dart';
-import 'package:GroceryCart/UserScreens/LoginLogout.dart';
 import 'package:GroceryCart/UserScreens/Profile.dart';
+import 'package:GroceryCart/Tools/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'Favourites.dart';
@@ -13,10 +13,16 @@ import 'History.dart';
 import 'Delivery.dart';
 import 'Profile.dart';
 import 'AboutUs.dart';
-import 'LoginLogout.dart';
 import 'ItemDetails.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.auth, this.userId, this.logoutCallback})
+      : super(key: key);
+
+  final BaseAuth auth;
+  final VoidCallback logoutCallback;
+  final String userId;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -42,6 +48,81 @@ class _MyHomePageState extends State<MyHomePage> {
         indicatorBgPadding: 4.0,
       ),
     );
+    final FirebaseDatabase _database = FirebaseDatabase.instance;
+
+    // bool _isEmailVerified = false;
+    // void _showVerifyEmailSentDialog() {
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       // return object of type Dialog
+    //       return AlertDialog(
+    //         title: new Text("Verify your account"),
+    //         content:
+    //             new Text("Link to verify account has been sent to your email"),
+    //         actions: <Widget>[
+    //           new FlatButton(
+    //             child: new Text("Dismiss"),
+    //             onPressed: () {
+    //               Navigator.of(context).pop();
+    //             },
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
+
+    // void _resentVerifyEmail() {
+    //   widget.auth.sendEmailVerification();
+    //   _showVerifyEmailSentDialog();
+    // }
+
+    // void _showVerifyEmailDialog() {
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       // return object of type Dialog
+    //       return AlertDialog(
+    //         title: new Text("Verify your account"),
+    //         content:
+    //             new Text("Please verify account in the link sent to email"),
+    //         actions: <Widget>[
+    //           new FlatButton(
+    //             child: new Text("Resent link"),
+    //             onPressed: () {
+    //               Navigator.of(context).pop();
+    //               _resentVerifyEmail();
+    //             },
+    //           ),
+    //           new FlatButton(
+    //             child: new Text("Dismiss"),
+    //             onPressed: () {
+    //               Navigator.of(context).pop();
+    //             },
+    //           ),
+    //         ],
+    //       );
+    //     },
+    //   );
+    // }
+
+    // void _checkEmailVerification() async {
+    //   _isEmailVerified = await widget.auth.isEmailVerified();
+    //   if (!_isEmailVerified) {
+    //     _showVerifyEmailDialog();
+    //   }
+    // }
+
+    signOut() async {
+      try {
+        await widget.auth.signOut();
+        widget.logoutCallback();
+      } catch (e) {
+        print(e);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -368,13 +449,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   size: 20.0,
                 ),
               ),
-              title: Text('Login'),
+              title: Text('Logout'),
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => LoginLogout(),
-                  ),
-                );
+                signOut();
               },
             ),
           ],

@@ -8,7 +8,6 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'Favourites.dart';
 import 'messages.dart';
 import 'Cart.dart';
-import 'OrderNotifications.dart';
 import 'History.dart';
 import 'Delivery.dart';
 import 'Profile.dart';
@@ -347,24 +346,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: Colors.white,
                 child: Icon(Icons.person),
               ),
-            ),
-            ListTile(
-              contentPadding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-              leading: CircleAvatar(
-                child: Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                  size: 20.0,
-                ),
-              ),
-              title: Text('Order Notification'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => MyOrderNotifications(),
-                  ),
-                );
-              },
             ),
             ListTile(
               contentPadding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),

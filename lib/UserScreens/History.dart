@@ -1,4 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:GroceryCart/Tools/database.dart';
+import 'package:provider/provider.dart';
+import 'package:GroceryCart/UserScreens/OrderList.dart';
+import 'package:GroceryCart/Tools/Orders.dart';
 
 class MyOrderHistory extends StatefulWidget {
   @override
@@ -8,18 +13,16 @@ class MyOrderHistory extends StatefulWidget {
 class _MyOrderHistoryState extends State<MyOrderHistory> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Order History'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Text(
-          'No History',
-          style: TextStyle(
-            fontSize: 25.0,
-          ),
+    return StreamProvider<List<Orders>>.value(
+      value: DatabaseService().prodCollection,
+      // return StreamProvider<QuerySnapshot>.value(
+      //   value: DatabaseService().prodCollection.snapshots(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Order History'),
+          centerTitle: true,
         ),
+        body: OrderList(),
       ),
     );
   }

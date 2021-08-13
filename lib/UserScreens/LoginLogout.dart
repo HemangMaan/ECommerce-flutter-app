@@ -44,8 +44,8 @@ class _LoginLogoutState extends State<LoginLogout> {
           print('Signed in: $userId');
         } else {
           userId = await widget.auth.signUp(_email, _password);
-          widget.auth.sendEmailVerification();
-          _showVerifyEmailSentDialog();
+          //widget.auth.sendEmailVerification();
+          //_showVerifyEmailSentDialog();
           print('Signed up user: $userId');
         }
         setState(() {
@@ -111,28 +111,28 @@ class _LoginLogoutState extends State<LoginLogout> {
     );
   }
 
-  void _showVerifyEmailSentDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Verify your account"),
-          content:
-              new Text("Link to verify account has been sent to your email"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Dismiss"),
-              onPressed: () {
-                toggleFormMode();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void _showVerifyEmailSentDialog() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       // return object of type Dialog
+  //       return AlertDialog(
+  //         title: new Text("Verify your account"),
+  //         content:
+  //             new Text("Link to verify account has been sent to your email"),
+  //         actions: <Widget>[
+  //           new FlatButton(
+  //             child: new Text("Dismiss"),
+  //             onPressed: () {
+  //               toggleFormMode();
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget _showForm() {
     return new Container(
